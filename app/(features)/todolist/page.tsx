@@ -85,8 +85,8 @@ export default function TodoList() {
                   <PlusCircle />
                 </Button>
                 <p>
-                  <span className="underline underline-offset-2 decoration-yellow-500 ">
-                    Please Add Some Streaks To Continue
+                  <span className="underline underline-offset-2 decoration-green-600 ">
+                    Please Add Some Tasks To Continue
                   </span>
                 </p>
               </div>
