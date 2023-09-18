@@ -120,7 +120,7 @@ export default function Signin() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="...." {...field} />
+                    <Input type="password" placeholder="...." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,23 +142,25 @@ export default function Signin() {
           <Button
             onClick={() => setDemoOpen(!demoOpen)}
             variant="ghost"
-            className="text-sm"
+            className="text-sm flex flex-col sm:flex-row"
           >
-            <AlertCircle className="h-4 w-4 mr-2 bg-yellow-500 rounded-full" />{" "}
-            Are You Looking For Demo Account?
+            <AlertCircle className="h-4 w-4 mr-2 bg-green-600 rounded-full " />{" "}
+            <p className="underline underline-offset-2">
+              Are You Looking For Demo Account?
+            </p>
           </Button>
           {demoOpen && (
             <div className="mt-1 space-y-2 px-4  text-sm">
               <p>
                 Email :
-                <span className="underline underline-offset-2 decoration-yellow-500">
+                <span className="underline underline-offset-2 decoration-green-600">
                   {" "}
                   jhon@gmail.com
                 </span>
               </p>
               <p>
                 Password :
-                <span className="underline underline-offset-2 decoration-yellow-500">
+                <span className="underline underline-offset-2 decoration-green-600">
                   {" "}
                   demo123
                 </span>

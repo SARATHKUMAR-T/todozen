@@ -47,7 +47,7 @@ export default function NavBar() {
   ];
 
   return (
-    <header className="fixed bg-inherit z-50 w-full sm:flex sm:justify-between  px-4 border-b">
+    <header className="fixed   bg-inherit  z-50 w-full sm:flex sm:justify-between  px-4  border-b-2">
       <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between w-full">
         <div className="flex items-center">
           <Sheet>

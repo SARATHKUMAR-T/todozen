@@ -1,12 +1,18 @@
 "use client";
-import { ModeToggle } from "@/components/DarkModeSwitch";
+import About from "@/components/About";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
 import NavBar from "@/components/NavBar";
 
 export default function Home() {
   return (
     <>
       <NavBar />
-      <main>hellow world!</main>
+      <main className="bg-[url('/assets/grid.svg')] bg-repeat  bg-left">
+        <Hero />
+        <About />
+        <Footer />
+      </main>
     </>
   );
 }
