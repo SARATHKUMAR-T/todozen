@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Card, CardDescription } from "./ui/card";
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
-import HoverDisplay from "./HoverDisplay";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "./ui/use-toast";
 import { Trash2 } from "lucide-react";
@@ -78,16 +77,14 @@ export default function TodoCard({ todo }: { todo: any }) {
   };
   return (
     <div className="flex gap-1">
-      <HoverDisplay title="Mark As Completed">
-        <Card className=" flex items-center justify-center px-4 py-2">
-          <Checkbox
-            checked={isChecked}
-            id="checked"
-            onCheckedChange={() => completeChange(todo._id)}
-            className="rounded-sm h-6 w-6"
-          />
-        </Card>
-      </HoverDisplay>
+      <Card className=" flex items-center justify-center px-4 py-2">
+        <Checkbox
+          checked={isChecked}
+          id="checked"
+          onCheckedChange={() => completeChange(todo._id)}
+          className="rounded-sm h-6 w-6"
+        />
+      </Card>
       <Card className="flex justify-between items-center px-3 py-2 gap-3 w-full ">
         <h3 className="capitalize font-semibold">{todo.todoname}</h3>
         <CardDescription>{todo.description}</CardDescription>
