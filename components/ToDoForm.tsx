@@ -64,20 +64,20 @@ export default function ToDoForm({
     };
     console.log(data);
 
-    const res = await fetch(`http://localhost:9000/api/addtodo`, {
+    const res = await fetch(`https://todozen-backend.vercel.app/api/addtodo`, {
       method: "POST",
       body: JSON.stringify(data),
       headers,
     });
     const result = await res.json();
     if (result.message === "New ToDo Created Successfully!") {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       setIsLoading(false);
       toast({
         title: result.message,
         description: "Here You Go🚀",
         duration: 5000,
       });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
       setIsFormOpen(false);
     } else {
       setIsLoading(false);

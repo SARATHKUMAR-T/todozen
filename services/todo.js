@@ -3,7 +3,7 @@ import axios from "axios";
 export async function getTodo() {
   const token = localStorage.getItem("token");
   const data = axios
-    .get("http://localhost:9000/api/gettodo", {
+    .get("https://todozen-backend.vercel.app/api/gettodo", {
       headers: {
         "x-auth-token": token,
       },

@@ -65,7 +65,9 @@ export default function TodoList() {
             )}
             {todos && (
               <div>
-                <h1 className="text-3xl text-center mb-3">Todo List</h1>
+                <h1 className="text-3xl text-center font-semibold mb-6">
+                  Todo List
+                </h1>
                 <div className="flex flex-col gap-4">
                   {todos.map(todo => (
                     <TodoCard key={todo._id} todo={todo} />

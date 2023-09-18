@@ -1,15 +1,21 @@
-import React from "react";
-import { Card, CardContent, CardDescription } from "./ui/card";
+import React, { useEffect, useState } from "react";
+import { Card, CardDescription } from "./ui/card";
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
 import HoverDisplay from "./HoverDisplay";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "./ui/use-toast";
+import { Trash2 } from "lucide-react";
 
 export default function TodoCard({ todo }: { todo: any }) {
   const queryClient = useQueryClient();
-
+  const [isChecked, setIsChecked] = useState(todo.isDone);
   const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    setIsChecked(todo.isDone);
+  }, [todo.isDone]);
+
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
@@ -17,22 +23,42 @@ export default function TodoCard({ todo }: { todo: any }) {
   if (token) {
     headers["x-auth-token"] = token;
   }
-  const completeChange = (id: string) => {
-    console.log(id);
+
+  // update functionality
+  const completeChange = async (id: string) => {
+    const response = await fetch(
+      `https://todozen-backend.vercel.app/api/todo/update/${id}`,
+      { method: "PUT", headers }
+    );
+    const result = await response.json();
+    console.log(result);
+    if (result.message === "ToDo Updated Successfully!") {
+      setIsChecked(!isChecked);
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast({
+        title: result.message,
+        duration: 3000,
+      });
+    } else {
+      toast({
+        title: result.message,
+        variant: "destructive",
+      });
+    }
   };
 
   //   delete function
   const handleDelete = async (id: string) => {
     const response = await fetch(
-      `https://zemo-backend.vercel.app/api/streak/delete/${id}`,
+      `https://todozen-backend.vercel.app/api/todo/delete/${id}`,
       {
         method: "DELETE",
         headers,
       }
     );
     const result = await response.json();
-    if (result.message === "Streak Deleted Successfully!") {
-      queryClient.invalidateQueries();
+    if (result.message === "ToDo Deleted Successfully!") {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast({
         title: result.message,
         description: "Don't forget to comeback again!",
@@ -55,6 +81,7 @@ export default function TodoCard({ todo }: { todo: any }) {
       <HoverDisplay title="Mark As Completed">
         <Card className=" flex items-center justify-center px-4 py-2">
           <Checkbox
+            checked={isChecked}
             id="checked"
             onCheckedChange={() => completeChange(todo._id)}
             className="rounded-sm h-6 w-6"
@@ -66,7 +93,9 @@ export default function TodoCard({ todo }: { todo: any }) {
         <CardDescription>{todo.description}</CardDescription>
         {todo.deadline && <p className="text-red-500">{todo.deadline}</p>}
 
-        <Button variant="secondary">Delete</Button>
+        <Button variant="ghost" onClick={() => handleDelete(todo._id)}>
+          <Trash2 />
+        </Button>
       </Card>
     </div>
   );
